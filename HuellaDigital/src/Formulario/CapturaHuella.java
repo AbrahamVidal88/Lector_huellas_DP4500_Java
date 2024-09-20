@@ -191,8 +191,8 @@ public class CapturaHuella extends javax.swing.JFrame {
             Connection c= cn.conectar();
             PreparedStatement guardarStmt = c.prepareStatement
                     ("INSERT INTO somhue(huenombre, huehuella) values(?,?)");
-            guardarStmt.setString(1,nombre);
-            guardarStmt.setBinaryStream(2, datosHuella,tamañoHuella);
+             guardarStmt.setString(1, nombre);
+            guardarStmt.setBinaryStream(2, datosHuella, tamañoHuella);
             guardarStmt.execute();
             guardarStmt.close();
             JOptionPane.showMessageDialog(null, "Huella guardada correctamente");
@@ -218,10 +218,10 @@ public class CapturaHuella extends javax.swing.JFrame {
                 byte templateBuffer [] = rs.getBytes("huehuella");
                 DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
                 setTemplate(referenceTemplate);
-                DPFPVerificationResult result = Verificador.verify(featuresinscripcion, getTemplate());
+                DPFPVerificationResult result = Verificador.verify(featureverificacion, getTemplate());
                 
                 if(result.isVerified())
-                    JOptionPane.showMessageDialog(null, "La huella capturada no coincide con la de "+nom,"Verificacion de huella", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "La huella capturada coincide con la de "+nom,"Verificacion de huella", JOptionPane.INFORMATION_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(null, "No corresponde la huella con "+nom, "Verificacion de huella", JOptionPane.ERROR_MESSAGE);
             }else{
@@ -246,7 +246,7 @@ public class CapturaHuella extends javax.swing.JFrame {
                 DPFPTemplate referenceTemplate =
                         DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
                 setTemplate(referenceTemplate);
-                DPFPVerificationResult result= Verificador.verify(featuresinscripcion, getTemplate());
+                DPFPVerificationResult result= Verificador.verify(featureverificacion, getTemplate());
                 if(result.isVerified()){
                     JOptionPane.showMessageDialog(null, "La huella capturada es de "+ nombre,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
                     return;
